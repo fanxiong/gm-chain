@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -28,22 +28,22 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/accounts/keystore"
-	"github.com/timenewbank/go-mit/cmd/utils"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/console"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/mitclient"
-	"github.com/timenewbank/go-mit/internal/debug"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/swarm"
-	bzzapi "github.com/timenewbank/go-mit/swarm/api"
-	swarmmetrics "github.com/timenewbank/go-mit/swarm/metrics"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/accounts/keystore"
+	"github.com/fanxiong/gm-chain/cmd/utils"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/console"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/mitclient"
+	"github.com/fanxiong/gm-chain/internal/debug"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/swarm"
+	bzzapi "github.com/fanxiong/gm-chain/swarm/api"
+	swarmmetrics "github.com/fanxiong/gm-chain/swarm/metrics"
 
 	"gopkg.in/urfave/cli.v1"
 )
@@ -98,7 +98,7 @@ var (
 	}
 	SwarmSwapAPIFlag = cli.StringFlag{
 		Name:   "swap-api",
-		Usage:  "URL of the Mit API provider to use to settle SWAP payments",
+		Usage:  "URL of the gm-chain API provider to use to settle SWAP payments",
 		EnvVar: SWARM_ENV_SWAP_API,
 	}
 	SwarmSyncEnabledFlag = cli.BoolTFlag{
@@ -171,13 +171,13 @@ func init() {
 	utils.ListenPortFlag.Value = 30399
 }
 
-var app = utils.NewApp(gitCommit, "Mit Swarm")
+var app = utils.NewApp(gitCommit, "gm-chain Swarm")
 
 // This init function creates the cli.App.
 func init() {
 	app.Action = bzzd
 	app.HideVersion = true // we have a command to print the version
-	app.Copyright = "Copyright 2013-2016 The go-mit Authors"
+	app.Copyright = "Copyright 2013-2016 The gm-chain Authors"
 	app.Commands = []cli.Command{
 		{
 			Action:    version,
@@ -268,12 +268,12 @@ Manage the local chunk database.
 					Description: `
 Export a local chunk database as a tar archive (use - to send to stdout).
 
-    swarm db export ~/.timenewbank/swarm/bzz-KEY/chunks chunks.tar
+    swarm db export ~/.fanxiong/swarm/bzz-KEY/chunks chunks.tar
 
 The export may be quite large, consider piping the output through the Unix
 pv(1) tool to get a progress bar:
 
-    swarm db export ~/.timenewbank/swarm/bzz-KEY/chunks - | pv > chunks.tar
+    swarm db export ~/.fanxiong/swarm/bzz-KEY/chunks - | pv > chunks.tar
 `,
 				},
 				{
@@ -284,12 +284,12 @@ pv(1) tool to get a progress bar:
 					Description: `
 Import chunks from a tar archive into a local chunk database (use - to read from stdin).
 
-    swarm db import ~/.timenewbank/swarm/bzz-KEY/chunks chunks.tar
+    swarm db import ~/.fanxiong/swarm/bzz-KEY/chunks chunks.tar
 
 The import may be quite large, consider piping the input through the Unix
 pv(1) tool to get a progress bar:
 
-    pv chunks.tar | swarm db import ~/.timenewbank/swarm/bzz-KEY/chunks -
+    pv chunks.tar | swarm db import ~/.fanxiong/swarm/bzz-KEY/chunks -
 `,
 				},
 				{
@@ -411,7 +411,7 @@ func bzzd(ctx *cli.Context) error {
 	if _, err := os.Stat(bzzconfig.Path); err == nil {
 		cfg.DataDir = bzzconfig.Path
 	}
-	//setup the timenewbank node
+	//setup the fanxiong node
 	utils.SetNodeConfig(ctx, &cfg)
 	stack, err := node.New(&cfg)
 	if err != nil {
@@ -420,7 +420,7 @@ func bzzd(ctx *cli.Context) error {
 	//a few steps need to be done after the config phase is completed,
 	//due to overriding behavior
 	initSwarmNode(bzzconfig, stack, ctx)
-	//register BZZ as node.Service in the timenewbank node
+	//register BZZ as node.Service in the fanxiong node
 	registerBzzService(bzzconfig, ctx, stack)
 	//start the node
 	utils.StartNode(stack)
@@ -464,7 +464,7 @@ func registerBzzService(bzzconfig *bzzapi.Config, ctx *cli.Context, stack *node.
 
 		return swarm.NewSwarm(ctx, swapClient, bzzconfig)
 	}
-	//register within the timenewbank node
+	//register within the fanxiong node
 	if err := stack.Register(boot); err != nil {
 		utils.Fatalf("Failed to register the Swarm service: %v", err)
 	}

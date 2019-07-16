@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package types contains data types related to Mit consensus.
+// Package types contains data types related to gm-chain consensus.
 package types
 
 import (
@@ -26,10 +26,10 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/crypto/sha3"
-	"github.com/timenewbank/go-mit/rlp"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/crypto/sha3"
+	"github.com/fanxiong/gm-chain/rlp"
 )
 
 var (
@@ -66,7 +66,7 @@ func (n *BlockNonce) UnmarshalText(input []byte) error {
 
 //go:generate gencodec -type Header -field-override headerMarshaling -out gen_header_json.go
 
-// Header represents a block header in the Mit blockchain.
+// Header represents a block header in the gm-chain blockchain.
 type Header struct {
 	ParentHash  common.Hash    `json:"parentHash"       gencodec:"required"`
 	UncleHash   common.Hash    `json:"sha3Uncles"       gencodec:"required"`
@@ -141,7 +141,7 @@ type Body struct {
 	Uncles       []*Header
 }
 
-// Block represents an entire block in the Mit blockchain.
+// Block represents an entire block in the gm-chain blockchain.
 type Block struct {
 	header       *Header
 	uncles       []*Header
@@ -268,7 +268,7 @@ func (b *Block) DecodeRLP(s *rlp.Stream) error {
 	return nil
 }
 
-// EncodeRLP serializes b into the Mit RLP block format.
+// EncodeRLP serializes b into the gm-chain RLP block format.
 func (b *Block) EncodeRLP(w io.Writer) error {
 	return rlp.Encode(w, extblock{
 		Header: b.header,

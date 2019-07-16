@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package tests
 
@@ -23,22 +23,22 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/common/math"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/state"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/core/vm"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/crypto/sha3"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rlp"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/common/math"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/state"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/core/vm"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/crypto/sha3"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rlp"
 )
 
 // StateTest checks transaction processing without block context.
-// See https://github.com/timenewbank/EIPs/issues/176 for the test format specification.
+// See https://github.com/fanxiong/EIPs/issues/176 for the test format specification.
 type StateTest struct {
 	json stJSON
 }
@@ -219,7 +219,7 @@ func (tx *stTransaction) toMessage(ps stPostState) (core.Message, error) {
 	dataHex := tx.Data[ps.Indexes.Data]
 	valueHex := tx.Value[ps.Indexes.Value]
 	gasLimit := tx.GasLimit[ps.Indexes.Gas]
-	// Value, Data hex encoding is messy: https://github.com/timenewbank/tests/issues/203
+	// Value, Data hex encoding is messy: https://github.com/fanxiong/tests/issues/203
 	value := new(big.Int)
 	if valueHex != "0x" {
 		v, ok := math.ParseBig256(valueHex)

@@ -29,7 +29,7 @@ COMMANDS:
 
 GLOBAL OPTIONS:
    --loglevel value        log level to emit to the screen (default: 4)
-   --keystore value        Directory for the keystore (default: "$HOME/.timenewbank/keystore")
+   --keystore value        Directory for the keystore (default: "$HOME/.fanxiong/keystore")
    --configdir value       Directory for clef configuration (default: "$HOME/.clef")
    --networkid value       Network identifier (integer, 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby) (default: 1)
    --lightkdf              Reduce key-derivation RAM & CPU usage at some expense of KDF strength
@@ -169,7 +169,7 @@ All hex encoded values must be prefixed with `0x`.
 
 #### Create new password protected account
 
-The signer will generate a new private key, encrypts it according to [web3 keystore spec](https://github.com/timenewbank/wiki/wiki/Web3-Secret-Storage-Definition) and stores it in the keystore directory.
+The signer will generate a new private key, encrypts it according to [web3 keystore spec](https://github.com/fanxiong/wiki/wiki/Web3-Secret-Storage-Definition) and stores it in the keystore directory.
 The client is responsible for creating a backup of the keystore. If the keystore is lost there is no method of retrieving lost accounts.
 
 #### Arguments
@@ -422,7 +422,7 @@ Response
    format.
    
 #### Arguments
-  - account [object]: key in [web3 keystore format](https://github.com/timenewbank/wiki/wiki/Web3-Secret-Storage-Definition) (retrieved with account_export) 
+  - account [object]: key in [web3 keystore format](https://github.com/fanxiong/wiki/wiki/Web3-Secret-Storage-Definition) (retrieved with account_export)
 
 #### Result
   - imported key [object]:
@@ -485,7 +485,7 @@ Response
   - account [address]: export private key that is associated with this account
 
 #### Result
-  - exported key, see [web3 keystore format](https://github.com/timenewbank/wiki/wiki/Web3-Secret-Storage-Definition) for
+  - exported key, see [web3 keystore format](https://github.com/fanxiong/wiki/wiki/Web3-Secret-Storage-Definition) for
   more information
   
 #### Sample call
@@ -725,12 +725,12 @@ Invoked when a request for account listing has been made.
       "accounts": [
         {
           "type": "Account",
-          "url": "keystore:///home/bazonk/.timenewbank/keystore/UTC--2017-11-20T14-44-54.089682944Z--123409812340981234098123409812deadbeef42",
+          "url": "keystore:///home/bazonk/.fanxiong/keystore/UTC--2017-11-20T14-44-54.089682944Z--123409812340981234098123409812deadbeef42",
           "address": "0x123409812340981234098123409812deadbeef42"
         },
         {
           "type": "Account",
-          "url": "keystore:///home/bazonk/.timenewbank/keystore/UTC--2017-11-23T21-59-03.199240693Z--cafebabedeadbeef34098123409812deadbeef42",
+          "url": "keystore:///home/bazonk/.fanxiong/keystore/UTC--2017-11-23T21-59-03.199240693Z--cafebabedeadbeef34098123409812deadbeef42",
           "address": "0xcafebabedeadbeef34098123409812deadbeef42"
         }
       ],
@@ -853,7 +853,7 @@ A UI should conform to the following rules.
 * A UI MUST NOT load any external resources that were not embedded/part of the UI package.
   * For example, not load icons, stylesheets from the internet
   * Not load files from the filesystem, unless they reside in the same local directory (e.g. config files)
-* A Graphical UI MUST show the blocky-identicon for timenewbank addresses.
+* A Graphical UI MUST show the blocky-identicon for fanxiong addresses.
 * A UI MUST warn display approproate warning if the destination-account is formatted with invalid checksum.
 * A UI MUST NOT open any ports or services
   * The signer opens the public port

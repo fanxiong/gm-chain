@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package vm
 
@@ -20,8 +20,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/params"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/params"
 )
 
 type twoOperandTest struct {
@@ -100,7 +100,7 @@ func TestByteOp(t *testing.T) {
 }
 
 func TestSHL(t *testing.T) {
-	// Testcases from https://github.com/timenewbank/EIPs/blob/master/EIPS/eip-145.md#shl-shift-left
+	// Testcases from https://github.com/fanxiong/EIPs/blob/master/EIPS/eip-145.md#shl-shift-left
 	tests := []twoOperandTest{
 		{"0000000000000000000000000000000000000000000000000000000000000001", "00", "0000000000000000000000000000000000000000000000000000000000000001"},
 		{"0000000000000000000000000000000000000000000000000000000000000001", "01", "0000000000000000000000000000000000000000000000000000000000000002"},
@@ -118,7 +118,7 @@ func TestSHL(t *testing.T) {
 }
 
 func TestSHR(t *testing.T) {
-	// Testcases from https://github.com/timenewbank/EIPs/blob/master/EIPS/eip-145.md#shr-logical-shift-right
+	// Testcases from https://github.com/fanxiong/EIPs/blob/master/EIPS/eip-145.md#shr-logical-shift-right
 	tests := []twoOperandTest{
 		{"0000000000000000000000000000000000000000000000000000000000000001", "00", "0000000000000000000000000000000000000000000000000000000000000001"},
 		{"0000000000000000000000000000000000000000000000000000000000000001", "01", "0000000000000000000000000000000000000000000000000000000000000000"},
@@ -136,7 +136,7 @@ func TestSHR(t *testing.T) {
 }
 
 func TestSAR(t *testing.T) {
-	// Testcases from https://github.com/timenewbank/EIPs/blob/master/EIPS/eip-145.md#sar-arithmetic-shift-right
+	// Testcases from https://github.com/fanxiong/EIPs/blob/master/EIPS/eip-145.md#sar-arithmetic-shift-right
 	tests := []twoOperandTest{
 		{"0000000000000000000000000000000000000000000000000000000000000001", "00", "0000000000000000000000000000000000000000000000000000000000000001"},
 		{"0000000000000000000000000000000000000000000000000000000000000001", "01", "0000000000000000000000000000000000000000000000000000000000000000"},

@@ -1,7 +1,7 @@
 package main
 
 import (
-	x509 "github.com/timenewbank/go-mit/mitx509"
+	x509 "github.com/fanxiong/gm-chain/mitx509"
 	"path/filepath"
 	"log"
 	"fmt"

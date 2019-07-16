@@ -36,7 +36,7 @@ import (
 	"math/big"
 	"unsafe"
 
-	"github.com/timenewbank/go-mit/common/math"
+	"github.com/fanxiong/gm-chain/common/math"
 )
 
 /*

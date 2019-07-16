@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -24,10 +24,10 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/timenewbank/go-mit/cmd/utils"
-	"github.com/timenewbank/go-mit/console"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/cmd/utils"
+	"github.com/fanxiong/gm-chain/console"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/rpc"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -43,7 +43,7 @@ var (
 		Description: `
 The Gmit console is an interactive shell for the JavaScript runtime environment
 which exposes a node admin interface as well as the Ðapp JavaScript API.
-See https://github.com/timenewbank/go-mit/wiki/JavaScript-Console.`,
+See https://github.com/fanxiong/gm-chain/wiki/JavaScript-Console.`,
 	}
 
 	attachCommand = cli.Command{
@@ -54,9 +54,9 @@ See https://github.com/timenewbank/go-mit/wiki/JavaScript-Console.`,
 		Flags:     append(consoleFlags, utils.DataDirFlag),
 		Category:  "CONSOLE COMMANDS",
 		Description: `
-The Mit console is an interactive shell for the JavaScript runtime environment
+The gm-chain console is an interactive shell for the JavaScript runtime environment
 which exposes a node admin interface as well as the Ðapp JavaScript API.
-See https://github.com/timenewbank/go-mit/wiki/JavaScript-Console.
+See https://github.com/fanxiong/gm-chain/wiki/JavaScript-Console.
 This command allows to open a console on a running mit node.`,
 	}
 
@@ -69,7 +69,7 @@ This command allows to open a console on a running mit node.`,
 		Category:  "CONSOLE COMMANDS",
 		Description: `
 The JavaScript VM exposes a node admin interface as well as the Ðapp
-JavaScript API. See https://github.com/timenewbank/go-mit/wiki/JavaScript-Console`,
+JavaScript API. See https://github.com/fanxiong/gm-chain/wiki/JavaScript-Console`,
 	}
 )
 

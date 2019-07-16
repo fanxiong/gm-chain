@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains the mit command usage template and generator.
 
@@ -24,8 +24,8 @@ import (
 
 	"strings"
 
-	"github.com/timenewbank/go-mit/cmd/utils"
-	"github.com/timenewbank/go-mit/internal/debug"
+	"github.com/fanxiong/gm-chain/cmd/utils"
+	"github.com/fanxiong/gm-chain/internal/debug"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -33,7 +33,7 @@ import (
 var AppHelpTemplate = `NAME:
    {{.App.Name}} - {{.App.Usage}}
 
-   Copyright 2013-2018 The go-mit Authors
+   Copyright 2013-2018 The gm-chain Authors
 
 USAGE:
    {{.App.HelpName}} [options]{{if .App.Commands}} command [command options]{{end}} {{if .App.ArgsUsage}}{{.App.ArgsUsage}}{{else}}[arguments...]{{end}}

@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package mitapi
 
@@ -26,21 +26,21 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/accounts/keystore"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/common/math"
-	"github.com/timenewbank/go-mit/consensus/mithash"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/core/vm"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/accounts/keystore"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/common/math"
+	"github.com/fanxiong/gm-chain/consensus/mithash"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/core/vm"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/rpc"
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
@@ -49,7 +49,7 @@ const (
 	defaultGasPrice = 50000 * params.Shannon//50
 )
 
-// PublicMitAPI provides an API to access Mit related information.
+// PublicMitAPI provides an API to access gm-chain related information.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicMitAPI struct {
 	b Backend
@@ -65,7 +65,7 @@ func (s *PublicMitAPI) GasPrice(ctx context.Context) (*big.Int, error) {
 	return s.b.SuggestPrice(ctx)
 }
 
-// ProtocolVersion returns the current Mit protocol version this node supports
+// ProtocolVersion returns the current gm-chain protocol version this node supports
 func (s *PublicMitAPI) ProtocolVersion() hexutil.Uint {
 	return hexutil.Uint(s.b.ProtocolVersion())
 }
@@ -406,23 +406,23 @@ func (s *PrivateAccountAPI) SignTransaction(ctx context.Context, args SendTxArgs
 // safely used to calculate a signature from.
 //
 // The hash is calulcated as
-//   keccak256("\x19Mit Signed Message:\n"${message length}${message}).
+//   keccak256("\x19gm-chain Signed Message:\n"${message length}${message}).
 //
 // This gives context to the signed message and prevents signing of transactions.
 func signHash(data []byte) []byte {
-	msg := fmt.Sprintf("\x19Mit Signed Message:\n%d%s", len(data), data)
+	msg := fmt.Sprintf("\x19gm-chain Signed Message:\n%d%s", len(data), data)
 	return crypto.Keccak256([]byte(msg))
 }
 
-// Sign calculates an Mit ECDSA signature for:
-// keccack256("\x19Mit Signed Message:\n" + len(message) + message))
+// Sign calculates an gm-chain ECDSA signature for:
+// keccack256("\x19gm-chain Signed Message:\n" + len(message) + message))
 //
 // Note, the produced signature conforms to the secp256k1 curve R, S and V values,
 // where the V value will be 27 or 28 for legacy reasons.
 //
 // The key used to calculate the signature is decrypted with the given password.
 //
-// https://github.com/timenewbank/go-mit/wiki/Management-APIs#personal_sign
+// https://github.com/fanxiong/gm-chain/wiki/Management-APIs#personal_sign
 func (s *PrivateAccountAPI) Sign(ctx context.Context, data hexutil.Bytes, addr common.Address, passwd string) (hexutil.Bytes, error) {
 	// Look up the wallet containing the requested signer
 	account := accounts.Account{Address: addr}
@@ -443,19 +443,19 @@ func (s *PrivateAccountAPI) Sign(ctx context.Context, data hexutil.Bytes, addr c
 // EcRecover returns the address for the account that was used to create the signature.
 // Note, this function is compatible with eth_sign and personal_sign. As such it recovers
 // the address of:
-// hash = keccak256("\x19Mit Signed Message:\n"${message length}${message})
+// hash = keccak256("\x19gm-chain Signed Message:\n"${message length}${message})
 // addr = ecrecover(hash, signature)
 //
 // Note, the signature must conform to the secp256k1 curve R, S and V values, where
 // the V value must be be 27 or 28 for legacy reasons.
 //
-// https://github.com/timenewbank/go-mit/wiki/Management-APIs#personal_ecRecover
+// https://github.com/fanxiong/gm-chain/wiki/Management-APIs#personal_ecRecover
 func (s *PrivateAccountAPI) EcRecover(ctx context.Context, data, sig hexutil.Bytes) (common.Address, error) {
 	if len(sig) != 65 {
 		return common.Address{}, fmt.Errorf("signature must be 65 bytes long")
 	}
 	if sig[64] != 27 && sig[64] != 28 {
-		return common.Address{}, fmt.Errorf("invalid Mit signature (V is not 27 or 28)")
+		return common.Address{}, fmt.Errorf("invalid gm-chain signature (V is not 27 or 28)")
 	}
 	sig[64] -= 27 // Transform yellow paper V from 27/28 to 0/1
 
@@ -474,13 +474,13 @@ func (s *PrivateAccountAPI) SignAndSendTransaction(ctx context.Context, args Sen
 	return s.SendTransaction(ctx, args, passwd)
 }
 
-// PublicBlockChainAPI provides an API to access the Mit blockchain.
+// PublicBlockChainAPI provides an API to access the gm-chain blockchain.
 // It offers only methods that operate on public data that is freely available to anyone.
 type PublicBlockChainAPI struct {
 	b Backend
 }
 
-// NewPublicBlockChainAPI creates a new Mit blockchain API.
+// NewPublicBlockChainAPI creates a new gm-chain blockchain API.
 func NewPublicBlockChainAPI(b Backend) *PublicBlockChainAPI {
 	return &PublicBlockChainAPI{b}
 }
@@ -1235,14 +1235,14 @@ func (s *PublicTransactionPoolAPI) SendRawTransaction(ctx context.Context, encod
 }
 
 // Sign calculates an ECDSA signature for:
-// keccack256("\x19Mit Signed Message:\n" + len(message) + message).
+// keccack256("\x19gm-chain Signed Message:\n" + len(message) + message).
 //
 // Note, the produced signature conforms to the secp256k1 curve R, S and V values,
 // where the V value will be 27 or 28 for legacy reasons.
 //
 // The account associated with addr must be unlocked.
 //
-// https://github.com/timenewbank/wiki/wiki/JSON-RPC#eth_sign
+// https://github.com/fanxiong/wiki/wiki/JSON-RPC#eth_sign
 func (s *PublicTransactionPoolAPI) Sign(addr common.Address, data hexutil.Bytes) (hexutil.Bytes, error) {
 	// Look up the wallet containing the requested signer
 	account := accounts.Account{Address: addr}
@@ -1358,14 +1358,14 @@ func (s *PublicTransactionPoolAPI) Resend(ctx context.Context, sendArgs SendTxAr
 	return common.Hash{}, fmt.Errorf("Transaction %#x not found", matchTx.Hash())
 }
 
-// PublicDebugAPI is the collection of Mit APIs exposed over the public
+// PublicDebugAPI is the collection of gm-chain APIs exposed over the public
 // debugging endpoint.
 type PublicDebugAPI struct {
 	b Backend
 }
 
 // NewPublicDebugAPI creates a new API definition for the public debug methods
-// of the Mit service.
+// of the gm-chain service.
 func NewPublicDebugAPI(b Backend) *PublicDebugAPI {
 	return &PublicDebugAPI{b: b}
 }
@@ -1401,14 +1401,14 @@ func (api *PublicDebugAPI) SeedHash(ctx context.Context, number uint64) (string,
 	return fmt.Sprintf("0x%x", mithash.SeedHash(number)), nil
 }
 
-// PrivateDebugAPI is the collection of Mit APIs exposed over the private
+// PrivateDebugAPI is the collection of gm-chain APIs exposed over the private
 // debugging endpoint.
 type PrivateDebugAPI struct {
 	b Backend
 }
 
 // NewPrivateDebugAPI creates a new API definition for the private debug methods
-// of the Mit service.
+// of the gm-chain service.
 func NewPrivateDebugAPI(b Backend) *PrivateDebugAPI {
 	return &PrivateDebugAPI{b: b}
 }
@@ -1473,7 +1473,7 @@ func (s *PublicNetAPI) PeerCount() hexutil.Uint {
 	return hexutil.Uint(s.net.PeerCount())
 }
 
-// Version returns the current timenewbank protocol version.
+// Version returns the current fanxiong protocol version.
 func (s *PublicNetAPI) Version() string {
 	return fmt.Sprintf("%d", s.networkVersion)
 }

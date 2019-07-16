@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // This file contains some shares testing functionality, common to  multiple
 // different files and modules being tested.
@@ -25,20 +25,20 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/consensus/mithash"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/core/vm"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/mit"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/les/flowcontrol"
-	"github.com/timenewbank/go-mit/light"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/params"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/consensus/mithash"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/core/vm"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/mit"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/les/flowcontrol"
+	"github.com/fanxiong/gm-chain/light"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/params"
 )
 
 var (

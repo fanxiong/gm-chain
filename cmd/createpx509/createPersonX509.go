@@ -4,9 +4,9 @@ import (
 	"path/filepath"
 	"os"
 	"log"
-	x509 "github.com/timenewbank/go-mit/mitx509"
+	x509 "github.com/fanxiong/gm-chain/mitx509"
 	"flag"
-	"github.com/timenewbank/go-mit/node"
+	"github.com/fanxiong/gm-chain/node"
 )
 
 

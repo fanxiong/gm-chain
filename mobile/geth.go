@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains all the wrappers from the node package to support client side node
 // management on mobile platforms.
@@ -24,23 +24,23 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/mit"
-	"github.com/timenewbank/go-mit/mit/downloader"
-	"github.com/timenewbank/go-mit/mitclient"
-	"github.com/timenewbank/go-mit/mitstats"
-	"github.com/timenewbank/go-mit/internal/debug"
-	"github.com/timenewbank/go-mit/les"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/nat"
-	"github.com/timenewbank/go-mit/params"
-	whisper "github.com/timenewbank/go-mit/whisper/whisperv6"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/mit"
+	"github.com/fanxiong/gm-chain/mit/downloader"
+	"github.com/fanxiong/gm-chain/mitclient"
+	"github.com/fanxiong/gm-chain/mitstats"
+	"github.com/fanxiong/gm-chain/internal/debug"
+	"github.com/fanxiong/gm-chain/les"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/nat"
+	"github.com/fanxiong/gm-chain/params"
+	whisper "github.com/fanxiong/gm-chain/whisper/whisperv6"
 )
 
 // NodeConfig represents the collection of configuration values to fine tune the Geth
 // node embedded into a mobile process. The available values are a subset of the
-// entire API provided by go-mit to reduce the maintenance surface and dev
+// entire API provided by gm-chain to reduce the maintenance surface and dev
 // complexity.
 type NodeConfig struct {
 	// Bootstrap nodes used to establish connectivity with the rest of the network.
@@ -163,7 +163,7 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 		if err := rawStack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
 			return les.New(ctx, &ethConf)
 		}); err != nil {
-			return nil, fmt.Errorf("timenewbank init: %v", err)
+			return nil, fmt.Errorf("fanxiong init: %v", err)
 		}
 		// If netstats reporting is requested, do it
 		if config.MitNetStats != "" {

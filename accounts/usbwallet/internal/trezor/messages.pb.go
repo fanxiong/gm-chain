@@ -954,7 +954,7 @@ func (m *GetAddress) GetScriptType() InputScriptType {
 }
 
 // *
-// Request: Ask device for Mit address corresponding to address_n path
+// Request: Ask device for gm-chain address corresponding to address_n path
 // @next PassphraseRequest
 // @next MitAddress
 // @next Failure
@@ -1004,7 +1004,7 @@ func (m *Address) GetAddress() string {
 }
 
 // *
-// Response: Contains an Mit address derived from device private seed
+// Response: Contains an gm-chain address derived from device private seed
 // @prev MitGetAddress
 type MitAddress struct {
 	Address          []byte `protobuf:"bytes,1,req,name=address" json:"address,omitempty"`

@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
-// Package utils contains internal helper functions for go-mit commands.
+// Package utils contains internal helper functions for gm-chain commands.
 package utils
 
 import (
@@ -28,34 +28,34 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/accounts/keystore"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/fdlimit"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/consensus/clique"
-	"github.com/timenewbank/go-mit/consensus/mithash"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/state"
-	"github.com/timenewbank/go-mit/core/vm"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/dashboard"
-	"github.com/timenewbank/go-mit/mit"
-	"github.com/timenewbank/go-mit/mit/downloader"
-	"github.com/timenewbank/go-mit/mit/gasprice"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/mitstats"
-	"github.com/timenewbank/go-mit/les"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/metrics"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/p2p/discv5"
-	"github.com/timenewbank/go-mit/p2p/nat"
-	"github.com/timenewbank/go-mit/p2p/netutil"
-	"github.com/timenewbank/go-mit/params"
-	whisper "github.com/timenewbank/go-mit/whisper/whisperv6"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/accounts/keystore"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/fdlimit"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/consensus/clique"
+	"github.com/fanxiong/gm-chain/consensus/mithash"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/state"
+	"github.com/fanxiong/gm-chain/core/vm"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/dashboard"
+	"github.com/fanxiong/gm-chain/mit"
+	"github.com/fanxiong/gm-chain/mit/downloader"
+	"github.com/fanxiong/gm-chain/mit/gasprice"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/mitstats"
+	"github.com/fanxiong/gm-chain/les"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/metrics"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/p2p/discv5"
+	"github.com/fanxiong/gm-chain/p2p/nat"
+	"github.com/fanxiong/gm-chain/p2p/netutil"
+	"github.com/fanxiong/gm-chain/params"
+	whisper "github.com/fanxiong/gm-chain/whisper/whisperv6"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -1123,7 +1123,7 @@ func SetDashboardConfig(ctx *cli.Context, cfg *dashboard.Config) {
 	cfg.Refresh = ctx.GlobalDuration(DashboardRefreshFlag.Name)
 }
 
-// RegisterEthService adds an Mit client to the stack.
+// RegisterEthService adds an gm-chain client to the stack.
 func RegisterMitService(stack *node.Node, cfg *mit.Config) {
 	var err error
 	if cfg.SyncMode == downloader.LightSync {
@@ -1161,7 +1161,7 @@ func RegisterShhService(stack *node.Node, cfg *whisper.Config) {
 	}
 }
 
-// RegisterEthStatsService configures the Mit Stats daemon and adds it to
+// RegisterEthStatsService configures the gm-chain Stats daemon and adds it to
 // th egiven node.
 func RegisterEthStatsService(stack *node.Node, url string) {
 	if err := stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
@@ -1174,7 +1174,7 @@ func RegisterEthStatsService(stack *node.Node, url string) {
 
 		return mitstats.New(url, ethServ, lesServ)
 	}); err != nil {
-		Fatalf("Failed to register the Mit Stats service: %v", err)
+		Fatalf("Failed to register the gm-chain Stats service: %v", err)
 	}
 }
 

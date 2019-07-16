@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package swarm
 
@@ -27,24 +27,24 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/timenewbank/go-mit/accounts/abi/bind"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/contracts/chequebook"
-	"github.com/timenewbank/go-mit/contracts/ens"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/mitclient"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/metrics"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rpc"
-	"github.com/timenewbank/go-mit/swarm/api"
-	httpapi "github.com/timenewbank/go-mit/swarm/api/http"
-	"github.com/timenewbank/go-mit/swarm/fuse"
-	"github.com/timenewbank/go-mit/swarm/network"
-	"github.com/timenewbank/go-mit/swarm/storage"
+	"github.com/fanxiong/gm-chain/accounts/abi/bind"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/contracts/chequebook"
+	"github.com/fanxiong/gm-chain/contracts/ens"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/mitclient"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/metrics"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rpc"
+	"github.com/fanxiong/gm-chain/swarm/api"
+	httpapi "github.com/fanxiong/gm-chain/swarm/api/http"
+	"github.com/fanxiong/gm-chain/swarm/fuse"
+	"github.com/fanxiong/gm-chain/swarm/network"
+	"github.com/fanxiong/gm-chain/swarm/storage"
 )
 
 var (

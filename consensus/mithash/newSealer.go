@@ -8,13 +8,13 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/log"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/log"
 	"encoding/binary"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/core/state"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/core/state"
 )
 
 
@@ -168,7 +168,7 @@ func (mithash *Mithash) newMine(block *types.Block, id int, seed uint64, abort c
 			}
 		}
 	}else{
-		logger.Warn("Please try to get more TNB for miner coinbase!")
+		logger.Warn("Please try to get more coin for miner coinbase!")
 		//abort
 		<-abort
 	}

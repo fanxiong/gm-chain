@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // +build none
 
@@ -58,7 +58,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/timenewbank/go-mit/internal/build"
+	"github.com/fanxiong/gm-chain/internal/build"
 )
 
 var (
@@ -85,7 +85,7 @@ var (
 	debExecutables = []debExecutable{
 		{
 			Name:        "abigen",
-			Description: "Source code generator to convert Mit contract definitions into easy to use, compile-time type-safe Go packages.",
+			Description: "Source code generator to convert gm-chain contract definitions into easy to use, compile-time type-safe Go packages.",
 		},
 		{
 			Name:        "bootnode",
@@ -93,7 +93,7 @@ var (
 		},
 		{
 			Name:        "evm",
-			Description: "Developer utility version of the EVM (Mit Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode.",
+			Description: "Developer utility version of the EVM (gm-chain Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode.",
 		},
 		{
 			Name:        "mit",
@@ -101,7 +101,7 @@ var (
 		},
 		{
 			Name:        "puppeth",
-			Description: "Mit private network manager.",
+			Description: "gm-chain private network manager.",
 		},
 		{
 			Name:        "rlpdump",
@@ -109,11 +109,11 @@ var (
 		},
 		{
 			Name:        "swarm",
-			Description: "Mit Swarm daemon and tools",
+			Description: "gm-chain Swarm daemon and tools",
 		},
 		{
 			Name:        "wnode",
-			Description: "Mit Whisper diagnostic tool",
+			Description: "gm-chain Whisper diagnostic tool",
 		},
 	}
 
@@ -188,7 +188,7 @@ func doInstall(cmdline []string) {
 
 		if minor < 9 {
 			log.Println("You have Go version", runtime.Version())
-			log.Println("go-mit requires at least Go version 1.9 and cannot")
+			log.Println("gm-chain requires at least Go version 1.9 and cannot")
 			log.Println("be compiled with an earlier version. Please upgrade your Go installation.")
 			os.Exit(1)
 		}
@@ -464,7 +464,7 @@ func maybeSkipArchive(env build.Environment) {
 func doDebianSource(cmdline []string) {
 	var (
 		signer  = flag.String("signer", "", `Signing key name, also used as package author`)
-		upload  = flag.String("upload", "", `Where to upload the source package (usually "ppa:timenewbank/timenewbank")`)
+		upload  = flag.String("upload", "", `Where to upload the source package (usually "ppa:fanxiong/fanxiong")`)
 		workdir = flag.String("workdir", "", `Output directory for packages (uses temp dir if unset)`)
 		now     = time.Now()
 	)
@@ -526,7 +526,7 @@ func isUnstableBuild(env build.Environment) bool {
 type debMetadata struct {
 	Env build.Environment
 
-	// go-mit version being built. Note that this
+	// gm-chain version being built. Note that this
 	// is not the debian package version. The package version
 	// is constructed by VersionString.
 	Version string
@@ -543,7 +543,7 @@ type debExecutable struct {
 func newDebMetadata(distro, author string, env build.Environment, t time.Time) debMetadata {
 	if author == "" {
 		// No signing key, use default author.
-		author = "Mit Builds <fjl@timenewbank.org>"
+		author = "gm-chain Builds <fjl@fanxiong.org>"
 	}
 	return debMetadata{
 		Env:         env,
@@ -559,9 +559,9 @@ func newDebMetadata(distro, author string, env build.Environment, t time.Time) d
 // on all executable packages.
 func (meta debMetadata) Name() string {
 	if isUnstableBuild(meta.Env) {
-		return "timenewbank-unstable"
+		return "fanxiong-unstable"
 	}
-	return "timenewbank"
+	return "fanxiong"
 }
 
 // VersionString returns the debian version of the packages.
@@ -605,7 +605,7 @@ func (meta debMetadata) ExeConflicts(exe debExecutable) string {
 		// be preferred and the conflicting files should be handled via
 		// alternates. We might do this eventually but using a conflict is
 		// easier now.
-		return "timenewbank, " + exe.Name
+		return "fanxiong, " + exe.Name
 	}
 	return ""
 }
@@ -731,7 +731,7 @@ func doAndroidArchive(cmdline []string) {
 	// Build the Android archive and Maven resources
 	build.MustRun(goTool("get", "golang.org/x/mobile/cmd/gomobile", "golang.org/x/mobile/cmd/gobind"))
 	build.MustRun(gomobileTool("init", "--ndk", os.Getenv("ANDROID_NDK")))
-	build.MustRun(gomobileTool("bind", "-ldflags", "-s -w", "--target", "android", "--javapkg", "org.timenewbank", "-v", "github.com/timenewbank/go-mit/mobile"))
+	build.MustRun(gomobileTool("bind", "-ldflags", "-s -w", "--target", "android", "--javapkg", "org.fanxiong", "-v", "github.com/fanxiong/gm-chain/mobile"))
 
 	if *local {
 		// If we're building locally, copy bundle to build dir and skip Maven
@@ -852,7 +852,7 @@ func doXCodeFramework(cmdline []string) {
 	// Build the iOS XCode framework
 	build.MustRun(goTool("get", "golang.org/x/mobile/cmd/gomobile", "golang.org/x/mobile/cmd/gobind"))
 	build.MustRun(gomobileTool("init"))
-	bind := gomobileTool("bind", "-ldflags", "-s -w", "--target", "ios", "--tags", "ios", "-v", "github.com/timenewbank/go-mit/mobile")
+	bind := gomobileTool("bind", "-ldflags", "-s -w", "--target", "ios", "--tags", "ios", "-v", "github.com/fanxiong/gm-chain/mobile")
 
 	if *local {
 		// If we're building locally, use the build folder and stop afterwards

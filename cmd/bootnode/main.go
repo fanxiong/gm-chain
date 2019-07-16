@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
-// bootnode runs a bootstrap node for the Mit Discovery Protocol.
+// bootnode runs a bootstrap node for the gm-chain Discovery Protocol.
 package main
 
 import (
@@ -24,13 +24,13 @@ import (
 	"net"
 	"os"
 
-	"github.com/timenewbank/go-mit/cmd/utils"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/p2p/discv5"
-	"github.com/timenewbank/go-mit/p2p/nat"
-	"github.com/timenewbank/go-mit/p2p/netutil"
+	"github.com/fanxiong/gm-chain/cmd/utils"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/p2p/discv5"
+	"github.com/fanxiong/gm-chain/p2p/nat"
+	"github.com/fanxiong/gm-chain/p2p/netutil"
 )
 
 func main() {
@@ -109,7 +109,7 @@ func main() {
 	realaddr := conn.LocalAddr().(*net.UDPAddr)
 	if natm != nil {
 		if !realaddr.IP.IsLoopback() {
-			go nat.Map(natm, nil, "udp", realaddr.Port, realaddr.Port, "timenewbank discovery")
+			go nat.Map(natm, nil, "udp", realaddr.Port, realaddr.Port, "fanxiong discovery")
 		}
 		// TODO: react to external IP changes over time.
 		if ext, err := natm.ExternalIP(); err == nil {

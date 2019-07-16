@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains the block download scheduler to collect download tasks and schedule
 // them in an ordered, and throttled way.
@@ -25,16 +25,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/metrics"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/metrics"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 
 var (
-	//change the blockCacheItems 8192 to 198
-	blockCacheItems      = 1             // Maximum number of blocks to cache before throttling the download
+	//change the blockCacheItems 8192 to 100 ， PoW required.
+	blockCacheItems      = 1024             // Maximum number of blocks to cache before throttling the download
 	blockCacheMemory     = 64 * 1024 * 1024 // Maximum amount of memory to use for block caching
 	blockCacheSizeWeight = 0.1              // Multiplier to approximate the average block size based on past ones
 )

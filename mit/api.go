@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package mit
 
@@ -25,26 +25,26 @@ import (
 	"os"
 	"strings"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/state"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/miner"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/rpc"
-	"github.com/timenewbank/go-mit/trie"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/state"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/miner"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/rpc"
+	"github.com/fanxiong/gm-chain/trie"
 )
 
-// PublicMitAPI provides an API to access Mit full node-related
+// PublicMitAPI provides an API to access gm-chain full node-related
 // information.
 type PublicMitAPI struct {
 	e *Mitereum
 }
 
-// NewPublicMitAPI creates a new Mit protocol API for full nodes.
+// NewPublicMitAPI creates a new gm-chain protocol API for full nodes.
 func NewPublicMitAPI(e *Mitereum) *PublicMitAPI {
 	return &PublicMitAPI{e}
 }
@@ -198,14 +198,14 @@ func (api *PrivateMinerAPI) GetHashrate() uint64 {
 	return uint64(api.e.miner.HashRate())
 }
 
-// PrivateAdminAPI is the collection of Mit full node-related APIs
+// PrivateAdminAPI is the collection of gm-chain full node-related APIs
 // exposed over the private admin endpoint.
 type PrivateAdminAPI struct {
 	eth *Mitereum
 }
 
 // NewPrivateAdminAPI creates a new API definition for the full node private
-// admin methods of the Mit service.
+// admin methods of the gm-chain service.
 func NewPrivateAdminAPI(eth *Mitereum) *PrivateAdminAPI {
 	return &PrivateAdminAPI{eth: eth}
 }
@@ -291,14 +291,14 @@ func (api *PrivateAdminAPI) ImportChain(file string) (bool, error) {
 	return true, nil
 }
 
-// PublicDebugAPI is the collection of Mit full node APIs exposed
+// PublicDebugAPI is the collection of gm-chain full node APIs exposed
 // over the public debugging endpoint.
 type PublicDebugAPI struct {
 	eth *Mitereum
 }
 
 // NewPublicDebugAPI creates a new API definition for the full node-
-// related public debug methods of the Mit service.
+// related public debug methods of the gm-chain service.
 func NewPublicDebugAPI(eth *Mitereum) *PublicDebugAPI {
 	return &PublicDebugAPI{eth: eth}
 }
@@ -328,7 +328,7 @@ func (api *PublicDebugAPI) DumpBlock(blockNr rpc.BlockNumber) (state.Dump, error
 	return stateDb.RawDump(), nil
 }
 
-// PrivateDebugAPI is the collection of Mit full node APIs exposed over
+// PrivateDebugAPI is the collection of gm-chain full node APIs exposed over
 // the private debugging endpoint.
 type PrivateDebugAPI struct {
 	config *params.ChainConfig
@@ -336,7 +336,7 @@ type PrivateDebugAPI struct {
 }
 
 // NewPrivateDebugAPI creates a new API definition for the full node-related
-// private debug methods of the Mit service.
+// private debug methods of the gm-chain service.
 func NewPrivateDebugAPI(config *params.ChainConfig, eth *Mitereum) *PrivateDebugAPI {
 	return &PrivateDebugAPI{config: config, eth: eth}
 }

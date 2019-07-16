@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // Package mitclient provides a client for the Mit RPC API.
 package mitclient
@@ -24,12 +24,12 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/timenewbank/go-mit"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/rpc"
 )
 
 // Client defines typed wrappers for the Mit RPC API.
@@ -90,7 +90,7 @@ func (ec *Client) getBlock(ctx context.Context, method string, args ...interface
 	if err != nil {
 		return nil, err
 	} else if len(raw) == 0 {
-		return nil, timenewbank.NotFound
+		return nil, fanxiong.NotFound
 	}
 	// Decode header and transactions.
 	var head *types.Header
@@ -152,7 +152,7 @@ func (ec *Client) HeaderByHash(ctx context.Context, hash common.Hash) (*types.He
 	var head *types.Header
 	err := ec.c.CallContext(ctx, &head, "mit_getBlockByHash", hash, false)
 	if err == nil && head == nil {
-		err = timenewbank.NotFound
+		err = fanxiong.NotFound
 	}
 	return head, err
 }
@@ -163,7 +163,7 @@ func (ec *Client) HeaderByNumber(ctx context.Context, number *big.Int) (*types.H
 	var head *types.Header
 	err := ec.c.CallContext(ctx, &head, "mit_getBlockByNumber", toBlockNumArg(number), false)
 	if err == nil && head == nil {
-		err = timenewbank.NotFound
+		err = fanxiong.NotFound
 	}
 	return head, err
 }
@@ -193,7 +193,7 @@ func (ec *Client) TransactionByHash(ctx context.Context, hash common.Hash) (tx *
 	if err != nil {
 		return nil, false, err
 	} else if json == nil {
-		return nil, false, timenewbank.NotFound
+		return nil, false, fanxiong.NotFound
 	} else if _, r, _ := json.tx.RawSignatureValues(); r == nil {
 		return nil, false, fmt.Errorf("server returned transaction without signature")
 	}
@@ -239,7 +239,7 @@ func (ec *Client) TransactionInBlock(ctx context.Context, blockHash common.Hash,
 	err := ec.c.CallContext(ctx, &json, "mit_getTransactionByBlockHashAndIndex", blockHash, hexutil.Uint64(index))
 	if err == nil {
 		if json == nil {
-			return nil, timenewbank.NotFound
+			return nil, fanxiong.NotFound
 		} else if _, r, _ := json.tx.RawSignatureValues(); r == nil {
 			return nil, fmt.Errorf("server returned transaction without signature")
 		}
@@ -255,7 +255,7 @@ func (ec *Client) TransactionReceipt(ctx context.Context, txHash common.Hash) (*
 	err := ec.c.CallContext(ctx, &r, "mit_getTransactionReceipt", txHash)
 	if err == nil {
 		if r == nil {
-			return nil, timenewbank.NotFound
+			return nil, fanxiong.NotFound
 		}
 	}
 	return r, err
@@ -278,7 +278,7 @@ type rpcProgress struct {
 
 // SyncProgress retrieves the current progress of the sync algorithm. If there's
 // no sync currently running, it returns nil.
-func (ec *Client) SyncProgress(ctx context.Context) (*timenewbank.SyncProgress, error) {
+func (ec *Client) SyncProgress(ctx context.Context) (*fanxiong.SyncProgress, error) {
 	var raw json.RawMessage
 	if err := ec.c.CallContext(ctx, &raw, "mit_syncing"); err != nil {
 		return nil, err
@@ -292,7 +292,7 @@ func (ec *Client) SyncProgress(ctx context.Context) (*timenewbank.SyncProgress, 
 	if err := json.Unmarshal(raw, &progress); err != nil {
 		return nil, err
 	}
-	return &timenewbank.SyncProgress{
+	return &fanxiong.SyncProgress{
 		StartingBlock: uint64(progress.StartingBlock),
 		CurrentBlock:  uint64(progress.CurrentBlock),
 		HighestBlock:  uint64(progress.HighestBlock),
@@ -303,7 +303,7 @@ func (ec *Client) SyncProgress(ctx context.Context) (*timenewbank.SyncProgress, 
 
 // SubscribeNewHead subscribes to notifications about the current blockchain head
 // on the given channel.
-func (ec *Client) SubscribeNewHead(ctx context.Context, ch chan<- *types.Header) (timenewbank.Subscription, error) {
+func (ec *Client) SubscribeNewHead(ctx context.Context, ch chan<- *types.Header) (fanxiong.Subscription, error) {
 	return ec.c.EthSubscribe(ctx, ch, "newHeads")
 }
 
@@ -357,18 +357,18 @@ func (ec *Client) NonceAt(ctx context.Context, account common.Address, blockNumb
 // Filters
 
 // FilterLogs executes a filter query.
-func (ec *Client) FilterLogs(ctx context.Context, q timenewbank.FilterQuery) ([]types.Log, error) {
+func (ec *Client) FilterLogs(ctx context.Context, q fanxiong.FilterQuery) ([]types.Log, error) {
 	var result []types.Log
 	err := ec.c.CallContext(ctx, &result, "mit_getLogs", toFilterArg(q))
 	return result, err
 }
 
 // SubscribeFilterLogs subscribes to the results of a streaming filter query.
-func (ec *Client) SubscribeFilterLogs(ctx context.Context, q timenewbank.FilterQuery, ch chan<- types.Log) (timenewbank.Subscription, error) {
+func (ec *Client) SubscribeFilterLogs(ctx context.Context, q fanxiong.FilterQuery, ch chan<- types.Log) (fanxiong.Subscription, error) {
 	return ec.c.EthSubscribe(ctx, ch, "logs", toFilterArg(q))
 }
 
-func toFilterArg(q timenewbank.FilterQuery) interface{} {
+func toFilterArg(q fanxiong.FilterQuery) interface{} {
 	arg := map[string]interface{}{
 		"fromBlock": toBlockNumArg(q.FromBlock),
 		"toBlock":   toBlockNumArg(q.ToBlock),
@@ -429,7 +429,7 @@ func (ec *Client) PendingTransactionCount(ctx context.Context) (uint, error) {
 // blockNumber selects the block height at which the call runs. It can be nil, in which
 // case the code is taken from the latest known block. Note that state from very old
 // blocks might not be available.
-func (ec *Client) CallContract(ctx context.Context, msg timenewbank.CallMsg, blockNumber *big.Int) ([]byte, error) {
+func (ec *Client) CallContract(ctx context.Context, msg fanxiong.CallMsg, blockNumber *big.Int) ([]byte, error) {
 	var hex hexutil.Bytes
 	err := ec.c.CallContext(ctx, &hex, "mit_call", toCallArg(msg), toBlockNumArg(blockNumber))
 	if err != nil {
@@ -440,7 +440,7 @@ func (ec *Client) CallContract(ctx context.Context, msg timenewbank.CallMsg, blo
 
 // PendingCallContract executes a message call transaction using the EVM.
 // The state seen by the contract call is the pending state.
-func (ec *Client) PendingCallContract(ctx context.Context, msg timenewbank.CallMsg) ([]byte, error) {
+func (ec *Client) PendingCallContract(ctx context.Context, msg fanxiong.CallMsg) ([]byte, error) {
 	var hex hexutil.Bytes
 	err := ec.c.CallContext(ctx, &hex, "mit_call", toCallArg(msg), "pending")
 	if err != nil {
@@ -463,7 +463,7 @@ func (ec *Client) SuggestGasPrice(ctx context.Context) (*big.Int, error) {
 // the current pending state of the backend blockchain. There is no guarantee that this is
 // the true gas limit requirement as other transactions may be added or removed by miners,
 // but it should provide a basis for setting a reasonable default.
-func (ec *Client) EstimateGas(ctx context.Context, msg timenewbank.CallMsg) (uint64, error) {
+func (ec *Client) EstimateGas(ctx context.Context, msg fanxiong.CallMsg) (uint64, error) {
 	var hex hexutil.Uint64
 	err := ec.c.CallContext(ctx, &hex, "mit_estimateGas", toCallArg(msg))
 	if err != nil {
@@ -484,7 +484,7 @@ func (ec *Client) SendTransaction(ctx context.Context, tx *types.Transaction) er
 	return ec.c.CallContext(ctx, nil, "mit_sendRawTransaction", common.ToHex(data))
 }
 
-func toCallArg(msg timenewbank.CallMsg) interface{} {
+func toCallArg(msg fanxiong.CallMsg) interface{} {
 	arg := map[string]interface{}{
 		"from": msg.From,
 		"to":   msg.To,

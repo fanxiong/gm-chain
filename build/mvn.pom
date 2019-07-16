@@ -4,14 +4,14 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.timenewbank</groupId>
+  <groupId>org.fanxiong</groupId>
   <artifactId>gmit</artifactId>
   <version>{{.Version}}</version>
   <packaging>aar</packaging>
 
   <name>Android Ethereum Client</name>
-  <description>Android port of the go-mit libraries and node</description>
-  <url>https://github.com/timenewbank/go-mit</url>
+  <description>Android port of the gm-chain libraries and node</description>
+  <url>https://github.com/fanxiong/gm-chain</url>
   <inceptionYear>2015</inceptionYear>
 
   <licenses>
@@ -48,10 +48,10 @@
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/timenewbank/go-mit/issues/</url>
+    <url>https://github.com/fanxiong/gm-chain/issues/</url>
   </issueManagement>
 
   <scm>
-    <url>https://github.com/timenewbank/go-mit</url>
+    <url>https://github.com/fanxiong/gm-chain</url>
   </scm>
 </project>

@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package filters implements an timenewbank filtering system for block,
+// Package filters implements an fanxiong filtering system for block,
 // transactions and log events.
 package filters
 
@@ -25,12 +25,12 @@ import (
 	"sync"
 	"time"
 
-	timenewbank "github.com/timenewbank/go-mit"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/rpc"
+	fanxiong "github.com/fanxiong/gm-chain"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/rpc"
 )
 
 // Type determines the kind of filter and is used to put the filter in to
@@ -76,7 +76,7 @@ type subscription struct {
 	id        rpc.ID
 	typ       Type
 	created   time.Time
-	logsCrit  timenewbank.FilterQuery
+	logsCrit  fanxiong.FilterQuery
 	logs      chan []*types.Log
 	hashes    chan common.Hash
 	headers   chan *types.Header
@@ -163,7 +163,7 @@ func (es *EventSystem) subscribe(sub *subscription) *Subscription {
 // SubscribeLogs creates a subscription that will write all logs matching the
 // given criteria to the given logs channel. Default value for the from and to
 // block is "latest". If the fromBlock > toBlock an error is returned.
-func (es *EventSystem) SubscribeLogs(crit timenewbank.FilterQuery, logs chan []*types.Log) (*Subscription, error) {
+func (es *EventSystem) SubscribeLogs(crit fanxiong.FilterQuery, logs chan []*types.Log) (*Subscription, error) {
 	var from, to rpc.BlockNumber
 	if crit.FromBlock == nil {
 		from = rpc.LatestBlockNumber
@@ -201,7 +201,7 @@ func (es *EventSystem) SubscribeLogs(crit timenewbank.FilterQuery, logs chan []*
 
 // subscribeMinedPendingLogs creates a subscription that returned mined and
 // pending logs that match the given criteria.
-func (es *EventSystem) subscribeMinedPendingLogs(crit timenewbank.FilterQuery, logs chan []*types.Log) *Subscription {
+func (es *EventSystem) subscribeMinedPendingLogs(crit fanxiong.FilterQuery, logs chan []*types.Log) *Subscription {
 	sub := &subscription{
 		id:        rpc.NewID(),
 		typ:       MinedAndPendingLogsSubscription,
@@ -218,7 +218,7 @@ func (es *EventSystem) subscribeMinedPendingLogs(crit timenewbank.FilterQuery, l
 
 // subscribeLogs creates a subscription that will write all logs matching the
 // given criteria to the given logs channel.
-func (es *EventSystem) subscribeLogs(crit timenewbank.FilterQuery, logs chan []*types.Log) *Subscription {
+func (es *EventSystem) subscribeLogs(crit fanxiong.FilterQuery, logs chan []*types.Log) *Subscription {
 	sub := &subscription{
 		id:        rpc.NewID(),
 		typ:       LogsSubscription,
@@ -235,7 +235,7 @@ func (es *EventSystem) subscribeLogs(crit timenewbank.FilterQuery, logs chan []*
 
 // subscribePendingLogs creates a subscription that writes transaction hashes for
 // transactions that enter the transaction pool.
-func (es *EventSystem) subscribePendingLogs(crit timenewbank.FilterQuery, logs chan []*types.Log) *Subscription {
+func (es *EventSystem) subscribePendingLogs(crit fanxiong.FilterQuery, logs chan []*types.Log) *Subscription {
 	sub := &subscription{
 		id:        rpc.NewID(),
 		typ:       PendingLogsSubscription,

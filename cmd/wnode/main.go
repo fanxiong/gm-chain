@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
 // This is a simple Whisper node. It could be used as a stand-alone bootstrap node.
 // Also, could be used for different test and diagnostics purposes.
@@ -35,16 +35,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/timenewbank/go-mit/cmd/utils"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/console"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/p2p/nat"
-	"github.com/timenewbank/go-mit/whisper/mailserver"
-	whisper "github.com/timenewbank/go-mit/whisper/whisperv6"
+	"github.com/fanxiong/gm-chain/cmd/utils"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/console"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/p2p/nat"
+	"github.com/fanxiong/gm-chain/whisper/mailserver"
+	whisper "github.com/fanxiong/gm-chain/whisper/whisperv6"
 	"golang.org/x/crypto/pbkdf2"
 )
 

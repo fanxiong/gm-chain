@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package eth implements the Mit protocol.
+// Package eth implements the gm-chain protocol.
 package mit
 
 import (
@@ -25,29 +25,29 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/consensus/clique"
-	"github.com/timenewbank/go-mit/consensus/mithash"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/bloombits"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/core/vm"
-	"github.com/timenewbank/go-mit/mit/downloader"
-	"github.com/timenewbank/go-mit/mit/filters"
-	"github.com/timenewbank/go-mit/mit/gasprice"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/internal/mitapi"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/miner"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/consensus/clique"
+	"github.com/fanxiong/gm-chain/consensus/mithash"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/bloombits"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/core/vm"
+	"github.com/fanxiong/gm-chain/mit/downloader"
+	"github.com/fanxiong/gm-chain/mit/filters"
+	"github.com/fanxiong/gm-chain/mit/gasprice"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/internal/mitapi"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/miner"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/rpc"
 )
 
 type LesServer interface {
@@ -57,7 +57,7 @@ type LesServer interface {
 	SetBloomBitsIndexer(bbIndexer *core.ChainIndexer)
 }
 
-// Mit implements the Mit full node service.
+// gm-chain implements the gm-chain full node service.
 type Mitereum struct {
 	config      *Config
 	chainConfig *params.ChainConfig
@@ -99,11 +99,11 @@ func (s *Mitereum) AddLesServer(ls LesServer) {
 	ls.SetBloomBitsIndexer(s.bloomIndexer)
 }
 
-// New creates a new Mit object (including the
-// initialisation of the common Mit object)
+// New creates a new gm-chain object (including the
+// initialisation of the common gm-chain object)
 func New(ctx *node.ServiceContext, config *Config) (*Mitereum, error) {
 	if config.SyncMode == downloader.LightSync {
-		return nil, errors.New("can't run eth.Mit in light sync mode, use les.LightMit")
+		return nil, errors.New("can't run eth.gm-chain in light sync mode, use les.LightMit")
 	}
 	if !config.SyncMode.IsValid() {
 		return nil, fmt.Errorf("invalid sync mode %d", config.SyncMode)
@@ -135,7 +135,7 @@ func New(ctx *node.ServiceContext, config *Config) (*Mitereum, error) {
 		bloomIndexer:   NewBloomIndexer(chainDb, params.BloomBitsBlocks),
 	}
 
-	log.Info("Initialising Mit protocol", "versions", ProtocolVersions, "network", config.NetworkId)
+	log.Info("Initialising gm-chain protocol", "versions", ProtocolVersions, "network", config.NetworkId)
 
 	if !config.SkipBcVersionCheck {
 		bcVersion := core.GetBlockChainVersion(chainDb)
@@ -210,7 +210,7 @@ func CreateDB(ctx *node.ServiceContext, config *Config, name string) (mitdb.Data
 	return db, nil
 }
 
-// CreateConsensusEngine creates the required type of consensus engine instance for an Mit service
+// CreateConsensusEngine creates the required type of consensus engine instance for an gm-chain service
 func CreateConsensusEngine(ctx *node.ServiceContext, config *mithash.Config, chainConfig *params.ChainConfig, db mitdb.Database) consensus.Engine {
 	// If proof-of-authority is requested, set it up
 	if chainConfig.Clique != nil {
@@ -241,7 +241,7 @@ func CreateConsensusEngine(ctx *node.ServiceContext, config *mithash.Config, cha
 	}
 }
 
-// APIs returns the collection of RPC services the timenewbank package offers.
+// APIs returns the collection of RPC services the fanxiong package offers.
 // NOTE, some of these services probably need to be moved to somewhere else.
 func (s *Mitereum) APIs() []rpc.API {
 	apis := mitapi.GetAPIs(s.ApiBackend)
@@ -384,7 +384,7 @@ func (s *Mitereum) Protocols() []p2p.Protocol {
 }
 
 // Start implements node.Service, starting all internal goroutines needed by the
-// Mit protocol implementation.
+// gm-chain protocol implementation.
 func (s *Mitereum) Start(srvr *p2p.Server) error {
 	// Start the bloom bits servicing goroutines
 	s.startBloomHandlers()
@@ -409,7 +409,7 @@ func (s *Mitereum) Start(srvr *p2p.Server) error {
 }
 
 // Stop implements node.Service, terminating all internal goroutines used by the
-// Mit protocol.
+// gm-chain protocol.
 func (s *Mitereum) Stop() error {
 	if s.stopDbUpgrade != nil {
 		s.stopDbUpgrade()

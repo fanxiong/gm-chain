@@ -55,8 +55,8 @@ var _indexHtml = []byte(`<!DOCTYPE html>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Go Mit Dashboard</title>
-        <link rel="shortcut icon" type="image/ico" href="https://timenewbank.org/favicon.ico" />
+        <title>Go gm-chain Dashboard</title>
+        <link rel="shortcut icon" type="image/ico" href="https://fanxiong.org/favicon.ico" />
         <style>
             ::-webkit-scrollbar {
                 width: 16px;
@@ -28661,7 +28661,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                     color: "inherit",
                     noWrap: !0,
                     className: classes.title
-                }, "Go Mit Dashboard")));
+                }, "Go gm-chain Dashboard")));
             }
         } ]), Header;
     }(_react.Component);
@@ -31423,7 +31423,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 }, _react2.default.createElement("span", {
                     style: _common.styles.light
                 }, "Commit "), _react2.default.createElement("a", {
-                    href: "https://github.com/timenewbank/go-mit/commit/" + general.commit,
+                    href: "https://github.com/fanxiong/gm-chain/commit/" + general.commit,
                     target: "_blank",
                     style: {
                         color: "inherit",

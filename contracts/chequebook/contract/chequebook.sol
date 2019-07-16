@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 import "./mortal.sol";
 
 /// @title Chequebook for Ethereum micropayments
-/// @author Daniel A. Nagy <daniel@timenewbank.org>
+/// @author Daniel A. Nagy <daniel@fanxiong.org>
 contract chequebook is mortal {
     // Cumulative paid amount in wei to each beneficiary
     mapping (address => uint256) public sent;

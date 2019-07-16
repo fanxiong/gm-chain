@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // This file contains the implementation for interacting with the Trezor hardware
 // wallets. The wire protocol spec can be found on the SatoshiLabs website:
@@ -27,12 +27,12 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/accounts/usbwallet/internal/trezor"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/log"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/accounts/usbwallet/internal/trezor"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/log"
 	"github.com/golang/protobuf/proto"
 )
 
@@ -64,7 +64,7 @@ func newTrezorDriver(logger log.Logger) driver {
 }
 
 // Status implements accounts.Wallet, always whether the Trezor is opened, closed
-// or whether the Mit app was not started on it.
+// or whether the gm-chain app was not started on it.
 func (w *trezorDriver) Status() (string, error) {
 	if w.failure != nil {
 		return fmt.Sprintf("Failed: %v", w.failure), w.failure
@@ -145,7 +145,7 @@ func (w *trezorDriver) Heartbeat() error {
 }
 
 // Derive implements usbwallet.driver, sending a derivation request to the Trezor
-// and returning the Mit address located on that derivation path.
+// and returning the gm-chain address located on that derivation path.
 func (w *trezorDriver) Derive(path accounts.DerivationPath) (common.Address, error) {
 	return w.trezorDerive(path)
 }
@@ -160,7 +160,7 @@ func (w *trezorDriver) SignTx(path accounts.DerivationPath, tx *types.Transactio
 }
 
 // trezorDerive sends a derivation request to the Trezor device and returns the
-// Mit address located on that path.
+// gm-chain address located on that path.
 func (w *trezorDriver) trezorDerive(derivationPath []uint32) (common.Address, error) {
 	address := new(trezor.MitAddress)
 	if _, err := w.trezorExchange(&trezor.MitGetAddress{AddressN: derivationPath}, address); err != nil {
@@ -209,7 +209,7 @@ func (w *trezorDriver) trezorSign(derivationPath []uint32, tx *types.Transaction
 			return common.Address{}, nil, err
 		}
 	}
-	// Extract the Mit signature and do a sanity validation
+	// Extract the gm-chain signature and do a sanity validation
 	if len(response.GetSignatureR()) == 0 || len(response.GetSignatureS()) == 0 || response.GetSignatureV() == 0 {
 		return common.Address{}, nil, errors.New("reply lacks signature")
 	}

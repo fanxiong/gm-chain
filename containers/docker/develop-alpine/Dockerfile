@@ -2,11 +2,11 @@ FROM alpine:3.7
 
 RUN \
   apk add --update go git make gcc musl-dev linux-headers ca-certificates && \
-  git clone --depth 1 https://github.com/timenewbank/go-mit && \
-  (cd go-mit && make geth) && \
-  cp go-mit/build/bin/mit /mit && \
+  git clone --depth 1 https://github.com/fanxiong/gm-chain && \
+  (cd gm-chain && make geth) && \
+  cp gm-chain/build/bin/mit /mit && \
   apk del go git make gcc musl-dev linux-headers && \
-  rm -rf /go-mit && rm -rf /var/cache/apk/*
+  rm -rf /gm-chain && rm -rf /var/cache/apk/*
 
 EXPOSE 8545
 EXPOSE 9999

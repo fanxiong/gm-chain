@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package les implements the Light Mit Subprotocol.
+// Package les implements the Light gm-chain Subprotocol.
 package les
 
 import (
@@ -26,22 +26,22 @@ import (
 	"sync"
 	"time"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/state"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/mit/downloader"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/light"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/p2p/discv5"
-	"github.com/timenewbank/go-mit/params"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/trie"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/state"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/mit/downloader"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/light"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/p2p/discv5"
+	"github.com/fanxiong/gm-chain/params"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/trie"
 )
 
 const (
@@ -125,8 +125,8 @@ type ProtocolManager struct {
 	wg *sync.WaitGroup
 }
 
-// NewProtocolManager returns a new timenewbank sub protocol manager. The Mit sub protocol manages peers capable
-// with the timenewbank network.
+// NewProtocolManager returns a new fanxiong sub protocol manager. The gm-chain sub protocol manages peers capable
+// with the fanxiong network.
 func NewProtocolManager(chainConfig *params.ChainConfig, lightSync bool, protocolVersions []uint, networkId uint64, mux *event.TypeMux, engine consensus.Engine, peers *peerSet, blockchain BlockChain, txpool txPool, chainDb mitdb.Database, odr *LesOdr, txrelay *LesTxRelay, quitSync chan struct{}, wg *sync.WaitGroup) (*ProtocolManager, error) {
 	// Create the protocol manager with the base fields
 	manager := &ProtocolManager{
@@ -233,7 +233,7 @@ func (pm *ProtocolManager) Start(maxPeers int) {
 func (pm *ProtocolManager) Stop() {
 	// Showing a log message. During download / process this could actually
 	// take between 5 to 10 seconds and therefor feedback is required.
-	log.Info("Stopping light Mit protocol")
+	log.Info("Stopping light gm-chain protocol")
 
 	// Quit the sync loop.
 	// After this send has completed, no new peers will be accepted.
@@ -250,7 +250,7 @@ func (pm *ProtocolManager) Stop() {
 	// Wait for any process action
 	pm.wg.Wait()
 
-	log.Info("Light Mit protocol stopped")
+	log.Info("Light gm-chain protocol stopped")
 }
 
 func (pm *ProtocolManager) newPeer(pv int, nv uint64, p *p2p.Peer, rw p2p.MsgReadWriter) *peer {
@@ -265,7 +265,7 @@ func (pm *ProtocolManager) handle(p *peer) error {
 		return p2p.DiscTooManyPeers
 	}
 
-	p.Log().Debug("Light Mit peer connected", "name", p.Name())
+	p.Log().Debug("Light gm-chain peer connected", "name", p.Name())
 
 	// Execute the LES handshake
 	var (
@@ -276,7 +276,7 @@ func (pm *ProtocolManager) handle(p *peer) error {
 		td      = pm.blockchain.GetTd(hash, number)
 	)
 	if err := p.Handshake(td, hash, number, genesis.Hash(), pm.server); err != nil {
-		p.Log().Debug("Light Mit handshake failed", "err", err)
+		p.Log().Debug("Light gm-chain handshake failed", "err", err)
 		return err
 	}
 	if rw, ok := p.rw.(*meteredMsgReadWriter); ok {
@@ -284,7 +284,7 @@ func (pm *ProtocolManager) handle(p *peer) error {
 	}
 	// Register the peer locally
 	if err := pm.peers.Register(p); err != nil {
-		p.Log().Error("Light Mit peer registration failed", "err", err)
+		p.Log().Error("Light gm-chain peer registration failed", "err", err)
 		return err
 	}
 	defer func() {
@@ -324,7 +324,7 @@ func (pm *ProtocolManager) handle(p *peer) error {
 	// main loop. handle incoming messages.
 	for {
 		if err := pm.handleMsg(p); err != nil {
-			p.Log().Debug("Light Mit message handling failed", "err", err)
+			p.Log().Debug("Light gm-chain message handling failed", "err", err)
 			return err
 		}
 	}
@@ -340,7 +340,7 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
 	if err != nil {
 		return err
 	}
-	p.Log().Trace("Light Mit message arrived", "code", msg.Code, "bytes", msg.Size)
+	p.Log().Trace("Light gm-chain message arrived", "code", msg.Code, "bytes", msg.Size)
 
 	costs := p.fcCosts[msg.Code]
 	reject := func(reqCnt, maxCnt uint64) bool {
@@ -1151,10 +1151,10 @@ func (pm *ProtocolManager) txStatus(hashes []common.Hash) []txStatus {
 	return stats
 }
 
-// NodeInfo represents a short summary of the Mit sub-protocol metadata
+// NodeInfo represents a short summary of the gm-chain sub-protocol metadata
 // known about the host peer.
 type NodeInfo struct {
-	Network    uint64              `json:"network"`    // Mit network ID (1=Frontier, 2=Morden, Ropsten=3, Rinkeby=4)
+	Network    uint64              `json:"network"`    // gm-chain network ID (1=Frontier, 2=Morden, Ropsten=3, Rinkeby=4)
 	Difficulty *big.Int            `json:"difficulty"` // Total difficulty of the host's blockchain
 	Genesis    common.Hash         `json:"genesis"`    // SHA3 hash of the host's genesis block
 	Config     *params.ChainConfig `json:"config"`     // Chain configuration for the fork rules

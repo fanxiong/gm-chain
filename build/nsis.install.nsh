@@ -3,9 +3,9 @@ InstallDir "$InstDir"
 OutFile "${OUTPUTFILE}" # set through command line arguments
 
 # Links for "Add/Remove Programs"
-!define HELPURL "https://github.com/timenewbank/go-mit/issues"
-!define UPDATEURL "https://github.com/timenewbank/go-mit/releases"
-!define ABOUTURL "https://github.com/timenewbank/go-mit#timenewbank-go"
+!define HELPURL "https://github.com/fanxiong/gm-chain/issues"
+!define UPDATEURL "https://github.com/fanxiong/gm-chain/releases"
+!define ABOUTURL "https://github.com/fanxiong/gm-chain#fanxiong-go"
 !define /date NOW "%Y%m%d"
 
 PageEx license
@@ -33,7 +33,7 @@ Section "MIT" GMIT_IDX
   SimpleFC::AdvAddRule "mit outgoing peers (TCP:9999)" ""  6 2 1 2147483647 1 "$INSTDIR\gmit.exe" "" "" "Mit" "" 9999 "" ""
   SimpleFC::AdvAddRule "mit UDP discovery (UDP:9999)" "" 17 2 1 2147483647 1 "$INSTDIR\gmit.exe" "" "" "Mit" "" 9999 "" ""
 
-  # Set default IPC endpoint (https://github.com/timenewbank/EIPs/issues/147)
+  # Set default IPC endpoint (https://github.com/fanxiong/EIPs/issues/147)
   ${EnvVarUpdate} $0 "ETHEREUM_SOCKET" "R" "HKLM" "\\.\pipe\mit.ipc"
   ${EnvVarUpdate} $0 "ETHEREUM_SOCKET" "A" "HKLM" "\\.\pipe\mit.ipc"
 

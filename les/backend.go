@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package les implements the Light Mit Subprotocol.
+// Package les implements the Light gm-chain Subprotocol.
 package les
 
 import (
@@ -22,27 +22,27 @@ import (
 	"sync"
 	"time"
 
-	"github.com/timenewbank/go-mit/accounts"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/hexutil"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/core/bloombits"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/mit"
-	"github.com/timenewbank/go-mit/mit/downloader"
-	"github.com/timenewbank/go-mit/mit/filters"
-	"github.com/timenewbank/go-mit/mit/gasprice"
-	"github.com/timenewbank/go-mit/mitdb"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/internal/mitapi"
-	"github.com/timenewbank/go-mit/light"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/node"
-	"github.com/timenewbank/go-mit/p2p"
-	"github.com/timenewbank/go-mit/p2p/discv5"
-	"github.com/timenewbank/go-mit/params"
-	rpc "github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/accounts"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/hexutil"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/core/bloombits"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/mit"
+	"github.com/fanxiong/gm-chain/mit/downloader"
+	"github.com/fanxiong/gm-chain/mit/filters"
+	"github.com/fanxiong/gm-chain/mit/gasprice"
+	"github.com/fanxiong/gm-chain/mitdb"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/internal/mitapi"
+	"github.com/fanxiong/gm-chain/light"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/node"
+	"github.com/fanxiong/gm-chain/p2p"
+	"github.com/fanxiong/gm-chain/p2p/discv5"
+	"github.com/fanxiong/gm-chain/params"
+	rpc "github.com/fanxiong/gm-chain/rpc"
 )
 
 type LightMit struct {
@@ -173,7 +173,7 @@ func (s *LightDummyAPI) Mining() bool {
 	return false
 }
 
-// APIs returns the collection of RPC services the timenewbank package offers.
+// APIs returns the collection of RPC services the fanxiong package offers.
 // NOTE, some of these services probably need to be moved to somewhere else.
 func (s *LightMit) APIs() []rpc.API {
 	return append(mitapi.GetAPIs(s.ApiBackend), []rpc.API{
@@ -219,7 +219,7 @@ func (s *LightMit) Protocols() []p2p.Protocol {
 }
 
 // Start implements node.Service, starting all internal goroutines needed by the
-// Mit protocol implementation.
+// gm-chain protocol implementation.
 func (s *LightMit) Start(srvr *p2p.Server) error {
 	s.startBloomHandlers()
 	log.Warn("Light client mode is an experimental feature")
@@ -232,7 +232,7 @@ func (s *LightMit) Start(srvr *p2p.Server) error {
 }
 
 // Stop implements node.Service, terminating all internal goroutines used by the
-// Mit protocol.
+// gm-chain protocol.
 func (s *LightMit) Stop() error {
 	s.odr.Stop()
 	if s.bloomIndexer != nil {

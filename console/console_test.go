@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package console
 
@@ -26,12 +26,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/consensus/mithash"
-	"github.com/timenewbank/go-mit/core"
-	"github.com/timenewbank/go-mit/mit"
-	"github.com/timenewbank/go-mit/internal/jsre"
-	"github.com/timenewbank/go-mit/node"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/consensus/mithash"
+	"github.com/fanxiong/gm-chain/core"
+	"github.com/fanxiong/gm-chain/mit"
+	"github.com/fanxiong/gm-chain/internal/jsre"
+	"github.com/fanxiong/gm-chain/node"
 )
 
 const (
@@ -75,7 +75,7 @@ func (p *hookedPrompter) SetWordCompleter(completer WordCompleter) {}
 type tester struct {
 	workspace string
 	stack     *node.Node
-	timenewbank  *mit.Mitereum
+	fanxiong  *mit.Mitereum
 	console   *Console
 	input     *hookedPrompter
 	output    *bytes.Buffer
@@ -90,7 +90,7 @@ func newTester(t *testing.T, confOverride func(*mit.Config)) *tester {
 		t.Fatalf("failed to create temporary keystore: %v", err)
 	}
 
-	// Create a networkless protocol stack and start an Mit service within
+	// Create a networkless protocol stack and start an gm-chain service within
 	stack, err := node.New(&node.Config{DataDir: workspace, UseLightweightKDF: true, Name: testInstance})
 	if err != nil {
 		t.Fatalf("failed to create node: %v", err)
@@ -106,7 +106,7 @@ func newTester(t *testing.T, confOverride func(*mit.Config)) *tester {
 		confOverride(ethConf)
 	}
 	if err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) { return mit.New(ctx, ethConf) }); err != nil {
-		t.Fatalf("failed to register Mit protocol: %v", err)
+		t.Fatalf("failed to register gm-chain protocol: %v", err)
 	}
 	// Start the node and assemble the JavaScript console around it
 	if err = stack.Start(); err != nil {
@@ -131,13 +131,13 @@ func newTester(t *testing.T, confOverride func(*mit.Config)) *tester {
 		t.Fatalf("failed to create JavaScript console: %v", err)
 	}
 	// Create the final tester and return
-	var timenewbank *mit.Mitereum
-	stack.Service(&timenewbank)
+	var fanxiong *mit.Mitereum
+	stack.Service(&fanxiong)
 
 	return &tester{
 		workspace: workspace,
 		stack:     stack,
-		timenewbank:  timenewbank,
+		fanxiong:  fanxiong,
 		console:   console,
 		input:     prompter,
 		output:    printer,

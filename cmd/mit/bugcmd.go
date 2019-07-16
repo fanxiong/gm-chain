@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of go-mit.
+// Copyright 2018 The gm-chain Authors
+// This file is part of gm-chain.
 //
-// go-mit is free software: you can redistribute it and/or modify
+// gm-chain is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-mit is distributed in the hope that it will be useful,
+// gm-chain is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-mit. If not, see <http://www.gnu.org/licenses/>.
+// along with gm-chain. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -26,10 +26,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/timenewbank/go-mit/cmd/internal/browser"
-	"github.com/timenewbank/go-mit/params"
+	"github.com/fanxiong/gm-chain/cmd/internal/browser"
+	"github.com/fanxiong/gm-chain/params"
 
-	"github.com/timenewbank/go-mit/cmd/utils"
+	"github.com/fanxiong/gm-chain/cmd/utils"
 	cli "gopkg.in/urfave/cli.v1"
 )
 
@@ -41,9 +41,9 @@ var bugCommand = cli.Command{
 	Category:  "MISCELLANEOUS COMMANDS",
 }
 
-const issueUrl = "https://github.com/timenewbank/go-mit/issues/new"
+const issueUrl = "https://github.com/fanxiong/gm-chain/issues/new"
 
-// reportBug reports a bug by opening a new URL to the go-mit GH issue
+// reportBug reports a bug by opening a new URL to the gm-chain GH issue
 // tracker and setting default values as the issue body.
 func reportBug(ctx *cli.Context) error {
 	// execute template and write contents to buff

@@ -42,7 +42,7 @@ import (
 	"fmt"
 	"hash"
 
-	ethcrypto "github.com/timenewbank/go-mit/crypto"
+	ethcrypto "github.com/fanxiong/gm-chain/crypto"
 )
 
 var (

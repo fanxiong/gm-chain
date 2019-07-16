@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package state provides a caching layer atop the Mit state trie.
+// Package state provides a caching layer atop the gm-chain state trie.
 package state
 
 import (
@@ -23,12 +23,12 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/crypto"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/rlp"
-	"github.com/timenewbank/go-mit/trie"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/crypto"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/rlp"
+	"github.com/fanxiong/gm-chain/trie"
 )
 
 type revision struct {
@@ -44,7 +44,7 @@ var (
 	emptyCode = crypto.Keccak256Hash(nil)
 )
 
-// StateDBs within the timenewbank protocol are used to store anything
+// StateDBs within the fanxiong protocol are used to store anything
 // within the merkle trie. StateDBs take care of caching and storing
 // nested states. It's the general query interface to retrieve:
 // * Contracts
@@ -471,7 +471,7 @@ func (self *StateDB) Copy() *StateDB {
 	}
 	// Copy the dirty states, logs, and preimages
 	for addr := range self.journal.dirties {
-		// As documented [here](https://github.com/timenewbank/go-mit/pull/16485#issuecomment-380438527),
+		// As documented [here](https://github.com/fanxiong/gm-chain/pull/16485#issuecomment-380438527),
 		// and in the Finalise-method, there is a case where an object is in the journal but not
 		// in the stateObjects: OOG after touch on ripeMD prior to Byzantium. Thus, we need to check for
 		// nil

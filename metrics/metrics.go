@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/timenewbank/go-mit/log"
+	"github.com/fanxiong/gm-chain/log"
 )
 
 // Enabled is checked by the constructor functions for all of the

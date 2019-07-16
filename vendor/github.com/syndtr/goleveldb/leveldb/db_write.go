@@ -13,7 +13,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb/memdb"
 	"github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/syndtr/goleveldb/leveldb/util"
-	//"github.com/timenewbank/go-mit/log"
+	//"github.com/fanxiong/gm-chain/log"
 )
 
 func (db *DB) writeJournal(batches []*Batch, seq uint64, sync bool) error {

@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 // Package mithash implements the mithash proof-of-work consensus engine.
 package mithash
@@ -33,10 +33,10 @@ import (
 	"unsafe"
 
 	mmap "github.com/edsrzf/mmap-go"
-	"github.com/timenewbank/go-mit/consensus"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/metrics"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/consensus"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/metrics"
+	"github.com/fanxiong/gm-chain/rpc"
 	"github.com/hashicorp/golang-lru/simplelru"
 )
 
@@ -452,7 +452,7 @@ func NewFaker() *Mithash {
 
 // NewFakeFailer creates a mithash consensus engine with a fake PoW scheme that
 // accepts all blocks as valid apart from the single one specified, though they
-// still have to conform to the Mit consensus rules.
+// still have to conform to the gm-chain consensus rules.
 func NewFakeFailer(fail uint64) *Mithash {
 	return &Mithash{
 		config: Config{
@@ -464,7 +464,7 @@ func NewFakeFailer(fail uint64) *Mithash {
 
 // NewFakeDelayer creates a mithash consensus engine with a fake PoW scheme that
 // accepts all blocks as valid, but delays verifications by some time, though
-// they still have to conform to the Mit consensus rules.
+// they still have to conform to the gm-chain consensus rules.
 func NewFakeDelayer(delay time.Duration) *Mithash {
 	return &Mithash{
 		config: Config{

@@ -21,7 +21,7 @@ Section "Uninstall"
   SimpleFC::AdvRemoveRule "MIT outgoing peers (TCP:9999)"
   SimpleFC::AdvRemoveRule "MIT UDP discovery (UDP:9999)"
 
-  # Remove IPC endpoint (https://github.com/timenewbank/EIPs/issues/147)
+  # Remove IPC endpoint (https://github.com/fanxiong/EIPs/issues/147)
   ${un.EnvVarUpdate} $0 "ETHEREUM_SOCKET" "R" "HKLM" "\\.\pipe\mit.ipc"
 
   # Remove install directory from PATH

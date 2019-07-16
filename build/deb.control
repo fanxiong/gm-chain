@@ -5,8 +5,8 @@ Maintainer: {{.Author}}
 Build-Depends: debhelper (>= 8.0.0), golang-1.10
 Standards-Version: 3.9.5
 Homepage: https://tnb.fund
-Vcs-Git: git://github.com/timenewbank/go-mit.git
-Vcs-Browser: https://github.com/timenewbank/go-mit
+Vcs-Git: git://github.com/fanxiong/gm-chain.git
+Vcs-Browser: https://github.com/fanxiong/gm-chain
 
 Package: {{.Name}}
 Architecture: any

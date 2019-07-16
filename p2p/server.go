@@ -1,20 +1,20 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package p2p implements the Mit p2p network protocols.
+// Package p2p implements the gm-chain p2p network protocols.
 package p2p
 
 import (
@@ -25,14 +25,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/common/mclock"
-	"github.com/timenewbank/go-mit/event"
-	"github.com/timenewbank/go-mit/log"
-	"github.com/timenewbank/go-mit/p2p/discover"
-	"github.com/timenewbank/go-mit/p2p/discv5"
-	"github.com/timenewbank/go-mit/p2p/nat"
-	"github.com/timenewbank/go-mit/p2p/netutil"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/common/mclock"
+	"github.com/fanxiong/gm-chain/event"
+	"github.com/fanxiong/gm-chain/log"
+	"github.com/fanxiong/gm-chain/p2p/discover"
+	"github.com/fanxiong/gm-chain/p2p/discv5"
+	"github.com/fanxiong/gm-chain/p2p/nat"
+	"github.com/fanxiong/gm-chain/p2p/netutil"
 )
 
 const (
@@ -432,7 +432,7 @@ func (srv *Server) Start() (err error) {
 		realaddr = conn.LocalAddr().(*net.UDPAddr)
 		if srv.NAT != nil {
 			if !realaddr.IP.IsLoopback() {
-				go nat.Map(srv.NAT, srv.quit, "udp", realaddr.Port, realaddr.Port, "timenewbank discovery")
+				go nat.Map(srv.NAT, srv.quit, "udp", realaddr.Port, realaddr.Port, "fanxiong discovery")
 			}
 			// TODO: react to external IP changes over time.
 			if ext, err := srv.NAT.ExternalIP(); err == nil {
@@ -521,7 +521,7 @@ func (srv *Server) startListening() error {
 	if !laddr.IP.IsLoopback() && srv.NAT != nil {
 		srv.loopWG.Add(1)
 		go func() {
-			nat.Map(srv.NAT, srv.quit, "tcp", laddr.Port, laddr.Port, "timenewbank p2p")
+			nat.Map(srv.NAT, srv.quit, "tcp", laddr.Port, laddr.Port, "fanxiong p2p")
 			srv.loopWG.Done()
 		}()
 	}

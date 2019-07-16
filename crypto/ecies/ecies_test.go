@@ -40,7 +40,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/timenewbank/go-mit/crypto"
+	"github.com/fanxiong/gm-chain/crypto"
 )
 
 var dumpEnc bool

@@ -1,35 +1,35 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package accounts implements high level Mit account management.
+// Package accounts implements high level gm-chain account management.
 package accounts
 
 import (
 	"math/big"
 
-	timenewbank "github.com/timenewbank/go-mit"
-	"github.com/timenewbank/go-mit/common"
-	"github.com/timenewbank/go-mit/core/types"
-	"github.com/timenewbank/go-mit/event"
+	fanxiong "github.com/fanxiong/gm-chain"
+	"github.com/fanxiong/gm-chain/common"
+	"github.com/fanxiong/gm-chain/core/types"
+	"github.com/fanxiong/gm-chain/event"
 )
 
-// Account represents an Mit account located at a specific location defined
+// Account represents an gm-chain account located at a specific location defined
 // by the optional URL field.
 type Account struct {
-	Address common.Address `json:"address"` // Mit account address derived from the key
+	Address common.Address `json:"address"` // gm-chain account address derived from the key
 	URL     URL            `json:"url"`     // Optional resource locator within a backend
 }
 
@@ -85,7 +85,7 @@ type Wallet interface {
 	//
 	// You can disable automatic account discovery by calling SelfDerive with a nil
 	// chain state reader.
-	SelfDerive(base DerivationPath, chain timenewbank.ChainStateReader)
+	SelfDerive(base DerivationPath, chain fanxiong.ChainStateReader)
 
 	// SignHash requests the wallet to sign the given hash.
 	//

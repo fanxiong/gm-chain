@@ -1,20 +1,20 @@
 // @flow
 
-// Copyright 2017 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2017 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from 'react';
 
@@ -165,7 +165,7 @@ class Footer extends Component<Props> {
 					{general.commit && (
 						<Typography type='caption' color='inherit'>
 							<span style={commonStyles.light}>{'Commit '}</span>
-							<a href={`https://github.com/timenewbank/go-mit/commit/${general.commit}`} target='_blank' style={{color: 'inherit', textDecoration: 'none'}} >
+							<a href={`https://github.com/fanxiong/gm-chain/commit/${general.commit}`} target='_blank' style={{color: 'inherit', textDecoration: 'none'}} >
 								{general.commit.substring(0, 8)}
 							</a>
 						</Typography>

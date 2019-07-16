@@ -1,18 +1,18 @@
-// Copyright 2018 The go-mit Authors
-// This file is part of the go-mit library.
+// Copyright 2018 The gm-chain Authors
+// This file is part of the gm-chain library.
 //
-// The go-mit library is free software: you can redistribute it and/or modify
+// The gm-chain library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-mit library is distributed in the hope that it will be useful,
+// The gm-chain library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-mit library. If not, see <http://www.gnu.org/licenses/>.
+// along with the gm-chain library. If not, see <http://www.gnu.org/licenses/>.
 
 package console
 
@@ -28,9 +28,9 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/timenewbank/go-mit/internal/jsre"
-	"github.com/timenewbank/go-mit/internal/web3ext"
-	"github.com/timenewbank/go-mit/rpc"
+	"github.com/fanxiong/gm-chain/internal/jsre"
+	"github.com/fanxiong/gm-chain/internal/web3ext"
+	"github.com/fanxiong/gm-chain/rpc"
 	"github.com/mattn/go-colorable"
 	"github.com/peterh/liner"
 	"github.com/robertkrimen/otto"
@@ -53,7 +53,7 @@ const DefaultPrompt = "> "
 type Config struct {
 	DataDir  string       // Data directory to store the console history at
 	DocRoot  string       // Filesystem path from where to load JavaScript files from
-	Client   *rpc.Client  // RPC client to execute Mit requests through
+	Client   *rpc.Client  // RPC client to execute gm-chain requests through
 	Prompt   string       // Input prompt prefix string (defaults to DefaultPrompt)
 	Prompter UserPrompter // Input prompter to allow interactive user feedback (defaults to TerminalPrompter)
 	Printer  io.Writer    // Output writer to serialize any display strings to (defaults to os.Stdout)
@@ -64,7 +64,7 @@ type Config struct {
 // JavaScript console attached to a running node via an external or in-process RPC
 // client.
 type Console struct {
-	client   *rpc.Client  // RPC client to execute Mit requests through
+	client   *rpc.Client  // RPC client to execute gm-chain requests through
 	jsre     *jsre.JSRE   // JavaScript runtime environment running the interpreter
 	prompt   string       // Input prompt prefix string
 	prompter UserPrompter // Input prompter to allow interactive user feedback
@@ -273,7 +273,7 @@ func (c *Console) AutoCompleteInput(line string, pos int) (string, []string, str
 // console's available modules.
 func (c *Console) Welcome() {
 	// Print some generic Gmit metadata
-	fmt.Fprintf(c.printer, "Welcome to the Mit JavaScript console!\n\n")
+	fmt.Fprintf(c.printer, "Welcome to the gm-chain JavaScript console!\n\n")
 	c.jsre.Run(`
 		console.log("coinbase: " + mit.coinbase);
 		console.log("at block: " + mit.blockNumber + " (" + new Date(1000 * mit.getBlock(mit.blockNumber).timestamp) + ")");
